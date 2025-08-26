@@ -41,23 +41,21 @@ android {
 }
 
 dependencies {
-  // navigation
-  implementation(libs.compose.navigation)
-  implementation(libs.kotlinx.serialization.json)
   // dependency injection
   ksp(libs.bundles.kotlin.inject.compiler)
   implementation(libs.bundles.kotlin.inject)
 
+  implementation(projects.common.navigation)
   // --- project dependencies
   implementation(projects.features.landing)
-  implementation(projects.features.settings)
+  implementation(projects.features.settings.impl)
   /**/ implementation(projects.domain.quoter.api)
   /**/ androidTestImplementation(projects.domain.quoter.api)
   /**/ implementation(projects.domain.quoter.impl)
   /**/ androidTestImplementation(projects.domain.quoter.impl)
 
   // --- testing
-  testImplementation(libs.junit)
+  testImplementation(libs.bundles.testing)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.espresso.core)
   androidTestImplementation(platform(libs.compose.bom))

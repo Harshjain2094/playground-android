@@ -1,34 +1,36 @@
 [versions]
-sdk-compile = "35"
+sdk-compile = "36"
 sdk-min = "21"
 sdk-target = "35"
 
-app-namespace = "harsh.starter.playground"
-app-version-code = "1"
-app-version-name = "23.062.000"
+app-namespace = "sh.kau.playground"
+app-version-code = "2"
+app-version-name = "25.08.100"
 
-agp = "8.7.2"  # android-gradle-plugin
+agp = "8.9.1"  # android-gradle-plugin
 kotlin = "2.0.20"
 
-ksp = "2.0.20-1.0.25"       # issue: https://github.com/google/ksp/issues/2072
+ksp = "2.0.20-1.0.25"      # Updated for Kotlin 2.1.21 compatibility
 kotlin-bcv = "0.13.2"
 kotlin-dataframe = "0.13.1"
+kotlinxSerializationCore = "1.8.1"
 
+activityCompose = "1.10.1"
+androidxLifecycle = "2.8.7"
+androidxTest = "1.6.2"
+composeBom = "2025.04.00" # https://developer.android.com/jetpack/compose/bom/bom-mapping
+composeNavigation = "2.8.9"
+desugarJdk = "2.1.5"
+espresso = "3.6.1"
+
+junit = "5.10.2"
+junitVersion = "1.2.1"
 kotlin-inject = "0.7.2"
 kotlin-inject-anvil = "0.1.0"
-
-activityCompose = "1.9.2"
-lint = "31.7.2"  # = agp + 23.0.0
-androidxLifecycle = "2.8.6"
-androidxTest = "1.6.2"
-composeBom = "2024.09.02" # https://developer.android.com/jetpack/compose/bom/bom-mapping
-composeNavigation = "2.8.3"
-desugarJdk = "2.1.2"
-espresso = "3.6.1"
-junit = "4.13.2"
+lint = "31.9.1"  # = agp + 23.0.0
+nav3Core = "1.0.0-alpha04"
 secretsGradlePlugin = "2.0.1"
-spotless = "6.15.0"
-junitVersion = "1.1.5"
+spotless = "6.25.0"
 
 [libraries]
 
@@ -48,12 +50,16 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-material = { module = "androidx.compose.material3:material3" }
+compose-material-icons = { module = "androidx.compose.material:material-icons-extended" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 
 compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-tools-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+jetpack-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+jetpack-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 
 desugar-jdk-lib = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdk" }
 
@@ -86,7 +92,8 @@ kotlin-inject-anvil-compiler = { group = "software.amazon.lastmile.kotlin.inject
 kotlin-inject-anvil-runtime = { group = "software.amazon.lastmile.kotlin.inject.anvil", name = "runtime", version.ref = "kotlin-inject-anvil" }
 kotlin-inject-anvil-runtime-utils = { group = "software.amazon.lastmile.kotlin.inject.anvil", name = "runtime-optional", version.ref = "kotlin-inject-anvil" }
 
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.3" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationCore" }
 
 ktor-bom = { module = "io.ktor:ktor-bom", version = "3.0.1" }
 ktor-client-android = { module = "io.ktor:ktor-client-android" }
@@ -102,7 +109,9 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 logcat = { group = "com.squareup.logcat", name = "logcat", version = "0.1" }
 
 ## Testing
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+testing-junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+testing-junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+testing-assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.25.3" }
 
 
 [bundles]
@@ -112,14 +121,18 @@ compose = [
     "androidx-activity-compose",
     "compose-ui", #  main APIs for the underlying toolkit systems
     "compose-material", #  material 3 design system
+    # "compose-material-icons" # don't add this directly (large dep)
     # "compose-tools",
     # "compose-material-window",
     # "accompanist-swiperefresh",
     # "accompanist-systemuicontroller"
 ]
-compose-navigation = [
-    "compose-navigation",
-    "kotlinx-serialization-json",
+jetpack-navigation = [
+    #    "compose-navigation",
+    "jetpack-navigation3-runtime",
+    "jetpack-navigation3-ui",
+    "kotlinx-serialization-core",
+    # "kotlinx-serialization-json",
 ]
 kotlin-inject = [
     "kotlin-inject-runtime",
@@ -148,9 +161,15 @@ lint-api = [
     #"lint-checks",
 ]
 lint-tests = [
-    "junit",
+    #    "junit",
     "lint-cli",
     "lint-tests"
+]
+testing = [
+    "testing-junit-api",
+    #    "testing-junit-engine"
+    "testing-assertj-core",
+    "coroutines-test",
 ]
 
 
@@ -163,12 +182,12 @@ android-lint = { id = "com.android.lint", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }                                                        # for jvm only
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }                                            # for andorid projects
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }                                                  # for annotation processing
 kotlin-kmp = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }                                          # for multiplatform projects
 kotlin-compatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlin-bcv" }
 kotlin-dataframe = { id = "org.jetbrains.kotlinx.dataframe", version.ref = "kotlin-dataframe" }
-kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }                                     #
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }                         # compose-navigation + ktor
+
+java-test-fixtures = { id = "org.gradle.java-test-fixtures" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

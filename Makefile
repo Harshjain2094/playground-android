@@ -1,48 +1,74 @@
-# many of these commands are specific to my macOS setup
+default: debug
+
+# some of these commands are specific to my macOS setup
 # so you may need to install some of these tools like fd, gum
 
-clean: clean-build
-	@gum log -l debug "removing .gradle directories"
+# Set default warning mode if not specified
+# permitted values all,none,summary
+# e.g. usage from make cli:
+#  		make debug warnings=summary
+warnings ?= none
+
+help:			## list out commands with descriptions
+	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
+
+debug:      ## (default)   assemble debug app -lint
+             ## 		make debug warnings=summary
+	@echo "--- This script will assemble the debug app (without linting)"
+	@./gradlew --warning-mode $(warnings) assembleDebug -x lint
+
+all:                    ## assemble full project -lint
+	@echo "--- This script will assemble the full project (without linting)"
+	@./gradlew --warning-mode $(warnings) assemble -x lint
+
+
+clean: clean-build  	## clean everything
+	@echo "--- removing .gradle directories"
 	@fd -u -t d '^.gradle$$' -X rm -Rf
-	@gum log -l debug "removing .kotlin directories"
+	@echo "--- removing .kotlin directories"
 	@fd -u -t d '^.kotlin$$' -X rm -Rf
-	@gum log -l debug "removing .DS_Store files"
+	@echo "--- removing .DS_Store files"
 	@fd -u -tf ".DS_Store" -X rm
-	@gum log -l debug "remove empty directories, suppressing error messages"
+	@echo "--- remove empty directories, suppressing error messages"
 	@fd -u -td -te -X rmdir
 
-clean-build:
-	@gum log -l info "This script will clean the build folders & cache"
-	@gum log -l debug "removing build directories"
+clean-build: 		## clean build folders and cache alone
+	@echo "--- This script will clean the build folders & cache"
+	@echo "--- removing build directories"
 	@fd -u -t d '^build$$' -X rm -Rf
 
-kill-ksp:
-	@gum log -l info "This script will kill your kotlin daemon (useful for ksp errors)"
+kill-ksp: 		## kill kotlin daemon (useful for ksp errors)
+	@echo "--- This script will kill your kotlin daemon (useful for ksp errors)"
 	@jps | grep -E 'KotlinCompileDaemon' | awk '{print $$1}' | xargs kill -9 || true
 
-b:
-	@gum log -l info "This script will assemble the debug app (without linting)"
-	@./gradlew assembleDebug -x lint
+lint: 			## run lint checks
+	@echo "--- This script will run lint checks"
+	@./gradlew --warning-mode $(warnings) lint
 
-build:
-	@gum log -l info "This script will assemble the project (without linting)"
-	@./gradlew assemble -x lint
-
-lint:
-	@gum log -l info "This script will run lint checks"
-	@./gradlew lint
-
-lint-update:
-	@gum log -l info "Update the baseline for lint"
+lint-update: 		## update lint baseline
+	@echo "--- Update the baseline for lint"
 	@./gradlew updateLintBaseline
 
-tests:
+tests: 			## run unit tests (without lint)
 	@echo "Run all unit tests without linting"
-	./gradlew tests -x lint
+	@./gradlew --warning-mode $(warnings) tests -x lint
+
+ktfmt:                  ## ktfmt changed files on this branch
+	@echo "--- This script will run ktfmt on all changed files"
+	@MERGE_BASE=$$(git merge-base HEAD origin/master); \
+	MODIFIED_FILES=$$(git diff $$MERGE_BASE --diff-filter=ACMR --name-only --relative -- '*.kt'); \
+	for FILE in $$MODIFIED_FILES; do \
+		echo "Formatting $$FILE"; \
+		ktfmt -F "$$FILE"; \
+	done
+
+ktfmt-all:
+	@echo "--- This script will run ktfmt on all files"
+	@ktfmt -F $(shell find . -name '*.kt')
 
 #tests-screenshots:
 #	@echo "Verify all screenshots"
-#	./gradlew verifyPaparazziDebug
+#	./gradlew --warning-mode $(warnings) verifyPaparazziDebug
 #
 #record-screenshots:
 #	@echo "Record all screenshots"

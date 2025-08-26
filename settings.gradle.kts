@@ -1,9 +1,9 @@
 pluginManagement {
   includeBuild("build-logic")
   repositories {
-    gradlePluginPortal()
     google()
     mavenCentral()
+    gradlePluginPortal()
   }
 }
 
@@ -24,7 +24,8 @@ include(":app")
 // features of this app; each standalone
 include(
     ":features:landing", // typical feature
-    ":features:settings",
+    ":features:settings:api",
+    ":features:settings:impl",
 )
 
 // module specific to this app
@@ -40,7 +41,9 @@ include(
 
 // common modules (shared across the app) but swappable with other implementations
 include(
-    ":common:networking",
     ":common:log", // android module
     ":common:lint-rules",
+    ":common:navigation",
+    ":common:networking",
+    ":common:usf",
 )
