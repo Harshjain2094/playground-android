@@ -1,22 +1,12 @@
-<<<<<<<< HEAD:app/src/main/java/harsh/starter/playground/PlaygroundApp.kt
-package harsh.starter.playground
-========
 package sh.kau.playground.app
->>>>>>>> origin/master:app/src/main/java/sh/kau/playground/app/AppImpl.kt
 
 import android.app.Application
 import android.content.pm.ApplicationInfo
 import logcat.LogPriority
 import logcat.logcat
-<<<<<<<< HEAD:app/src/main/java/harsh/starter/playground/PlaygroundApp.kt
-import harsh.starter.playground.common.log.CompositeLogger
-import harsh.starter.playground.di.AppComponent
-import harsh.starter.playground.domain.shared.App
-========
 import sh.kau.playground.app.di.AppComponent
 import sh.kau.playground.log.CompositeLogger
 import sh.kau.playground.shared.App
->>>>>>>> origin/master:app/src/main/java/sh/kau/playground/app/AppImpl.kt
 
 class AppImpl : App, Application() {
 

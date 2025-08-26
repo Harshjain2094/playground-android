@@ -1,17 +1,8 @@
-<<<<<<<< HEAD:app/src/main/java/harsh/starter/playground/di/AppComponent.kt
-package harsh.starter.playground.di
-========
 package sh.kau.playground.app.di
->>>>>>>> origin/master:app/src/main/java/sh/kau/playground/app/di/AppComponent.kt
 
 import android.content.Context
 import logcat.LogcatLogger
 import me.tatarka.inject.annotations.Provides
-<<<<<<<< HEAD:app/src/main/java/harsh/starter/playground/di/AppComponent.kt
-import harsh.starter.playground.domain.shared.App
-import harsh.starter.playground.domain.shared.di.Named
-import harsh.starter.playground.features.settings.di.SettingsComponent
-========
 import sh.kau.playground.features.settings.di.SettingsComponent
 import sh.kau.playground.landing.nav.LandingRoutes
 import sh.kau.playground.navigation.EntryProviderInstaller
@@ -19,7 +10,6 @@ import sh.kau.playground.navigation.NavRoute
 import sh.kau.playground.navigation.Navigator
 import sh.kau.playground.shared.App
 import sh.kau.playground.shared.di.Named
->>>>>>>> origin/master:app/src/main/java/sh/kau/playground/app/di/AppComponent.kt
 import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 import software.amazon.lastmile.kotlin.inject.anvil.MergeComponent
 import software.amazon.lastmile.kotlin.inject.anvil.SingleIn

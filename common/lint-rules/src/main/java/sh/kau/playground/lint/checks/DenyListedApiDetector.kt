@@ -1,11 +1,7 @@
 // Copyright (C) 2024 Moxy Mouse, Inc.
 // Copyright (C) 2022 Square, Inc.
 // SPDX-License-Identifier: Apache-2.0
-<<<<<<<< HEAD:common/lint-rules/src/main/java/harsh/starter/playground/common/lint/checks/DenyListedApiDetector.kt
-package harsh.starter.playground.common.lint.checks
-========
 package sh.kau.playground.lint.checks
->>>>>>>> origin/master:common/lint-rules/src/main/java/sh/kau/playground/lint/checks/DenyListedApiDetector.kt
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.Category.Companion.CORRECTNESS

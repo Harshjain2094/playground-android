@@ -1,8 +1,8 @@
 package sh.kau.playground.features.settings.viewmodel
 
+import sh.kau.playground.features.settings.di.SettingsScope
 import kotlinx.coroutines.CoroutineScope
 import me.tatarka.inject.annotations.Inject
-import sh.kau.playground.features.settings.di.SettingsScope
 import sh.kau.playground.usf.scope.ResultScope
 import sh.kau.playground.usf.viewmodel.UsfViewModel
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding

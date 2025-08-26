@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:domain/shared/src/main/java/harsh/starter/playground/domain/shared/App.kt
-package harsh.starter.playground.domain.shared
-========
 package sh.kau.playground.shared
->>>>>>>> origin/master:domain/shared/src/main/java/sh/kau/playground/shared/App.kt
 
 /**
  * This is the main application interface.

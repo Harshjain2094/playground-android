@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:common/networking/src/main/java/harsh/starter/playground/common/networking/NetworkApi.kt
-package harsh.starter.playground.common.networking
-========
 package sh.kau.playground.networking
->>>>>>>> origin/master:common/networking/src/main/java/sh/kau/playground/networking/NetworkApi.kt
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android

@@ -1,4 +1,4 @@
-package harsh.starter.playground.features.settings.di
+package sh.kau.playground.features.settings.di
 
 import me.tatarka.inject.annotations.Scope
 

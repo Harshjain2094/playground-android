@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:domain/quoter/api/src/main/java/harsh/starter/playground/domain/quoter/api/QuotesRepo.kt
-package harsh.starter.playground.domain.quoter.api
-========
 package sh.kau.playground.quoter
->>>>>>>> origin/master:domain/quoter/api/src/main/java/sh/kau/playground/quoter/QuotesRepo.kt
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

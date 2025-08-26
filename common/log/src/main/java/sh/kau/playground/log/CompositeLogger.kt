@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:common/log/src/main/java/harsh/starter/playground/common/log/CompositeLogger.kt
-package harsh.starter.playground.common.log
-========
 package sh.kau.playground.log
->>>>>>>> origin/master:common/log/src/main/java/sh/kau/playground/log/CompositeLogger.kt
 
 import logcat.LogPriority
 import logcat.LogcatLogger
